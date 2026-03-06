@@ -63,5 +63,26 @@ namespace W26W8DisconnectedModel
             _adp.InsertCommand = _cmdBuilder.GetInsertCommand();
             _adp.Update(_tblProds);
         }
+
+        public void Update(int id, string name, decimal price, short quantity)
+        {
+            var row = _tblProds.Rows.Find(id);
+
+            row["ProductName"] = name;
+            row["UnitPrice"] = price;
+            row["UnitsInStock"] = quantity;
+            
+            _adp.UpdateCommand = _cmdBuilder.GetUpdateCommand();
+            _adp.Update(_tblProds);
+        }
+
+        public void Delete(int id)
+        {
+            var row = _tblProds.Rows.Find(id);
+            row!.Delete();
+
+            _adp.DeleteCommand = _cmdBuilder.GetDeleteCommand();
+            _adp.Update(_tblProds);
+        }
     }
 }
